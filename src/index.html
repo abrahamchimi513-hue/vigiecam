@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>VigieCam - Plateforme de Signalement Citoyen</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <style>
+    /* STYLE DU SPLASH SCREEN AUX COULEURS DE VIGIECAM */
+    #initial-splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0A192F; /* Fond bleu nuit exact du dashboard VigieCam */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999999;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+    .splash-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .splash-circle-box {
+      position: relative;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    .spinner-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 4px solid #172A46;
+      border-top: 4px solid #B4D330; /* Vert/Jaune signature de l'avatar VigieCam */
+      border-right: 4px solid #64FFDA; /* Touche cyan/bleu clair de l'application */
+      border-radius: 50%;
+      animation: spin 1.2s linear infinite;
+    }
+    .splash-initials {
+      font-size: 28px;
+      font-weight: 900;
+      color: #B4D330;
+      letter-spacing: 1px;
+    }
+    .splash-brand-text {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .brand-vigie { color: #FFFFFF; }
+    .brand-cam { color: #64FFDA; }
+    .splash-tagline {
+      font-size: 15px;
+      font-weight: 700;
+      color: #B4D330;
+      letter-spacing: 3px;
+      margin-bottom: 25px;
+    }
+    .splash-loading-text {
+      font-size: 13px;
+      color: #8892B0;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <app-root>
+    <div id="initial-splash">
+      <div class="splash-content">
+        <div class="splash-circle-box">
+          <div class="spinner-ring"></div>
+          <span class="splash-initials">VC</span>
+        </div>
+        <div class="splash-brand-text">
+          <span class="brand-vigie">VIGIE</span><span class="brand-cam">CAM</span>
+        </div>
+        <div class="splash-tagline">RÉALISE BIEN</div>
+        <div class="splash-loading-text">Chargement de la plateforme professionnelle...</div>
+      </div>
+    </div>
+  </app-root>
+</body>
+</html>
