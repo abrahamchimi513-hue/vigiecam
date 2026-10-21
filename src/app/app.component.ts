@@ -42,7 +42,7 @@ export interface Utilisateur {
   template: `
     <div class="app-container">
       <!-- NAVBAR PUBLIQUE -->
-      <nav *ngIf="currentView() !== 'dashboard'" class="top-navbar">
+      <nav *ngIf="currentView() !== 'dashboard'" class="top-navbar" [class.menu-open]="menuOpen()">
         <div class="nav-brand" (click)="setView('accueil')">
           <div class="brand-symbol">VC</div>
           <div class="brand-text">
@@ -50,6 +50,10 @@ export interface Utilisateur {
             <span class="brand-sub">MbemNova Civic Services</span>
           </div>
         </div>
+
+        <button class="nav-toggle" (click)="menuOpen.set(!menuOpen())" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
 
         <div class="nav-links">
           <a class="nav-link" (click)="setView('accueil')">Accueil</a>
@@ -737,6 +741,23 @@ export interface Utilisateur {
     .btn-secondary { background: #E2E8F0; color: #475569; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer; }
     .w-100 { width: 100%; }
     .mt-20 { margin-top: 20px; }
+
+    /* ===== NAVBAR MOBILE ===== */
+    .nav-toggle { display: none; }
+
+    @media (max-width: 768px) {
+      .top-navbar { height: auto; min-height: 64px; padding: 10px 16px; flex-wrap: wrap; }
+      .brand-sub { display: none; }
+
+      .nav-toggle { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; width: 44px; height: 44px; background: transparent; border: 1px solid #2D3A4D; border-radius: 10px; cursor: pointer; }
+      .nav-toggle span { width: 20px; height: 2px; background: white; border-radius: 2px; }
+
+      .nav-links, .nav-actions { display: none; width: 100%; }
+      .top-navbar.menu-open .nav-links { display: flex; flex-direction: column; gap: 0; margin-top: 10px; border-top: 1px solid #1E2D42; }
+      .top-navbar.menu-open .nav-link { padding: 12px 4px; font-size: 15px; border-bottom: 1px solid #1E2D42; }
+      .top-navbar.menu-open .nav-actions { display: flex; flex-direction: column; gap: 10px; padding: 12px 0 4px; }
+      .top-navbar.menu-open .btn-nav-outline, .top-navbar.menu-open .btn-nav-primary { width: 100%; padding: 12px; }
+    }
   `]
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -746,6 +767,7 @@ export class AppComponent implements OnInit, OnDestroy {
   showNewModal = signal<boolean>(false);
   showNewCatModal = signal<boolean>(false);
   activeSlide = signal<number>(0);
+  menuOpen = signal<boolean>(false);
 
   incidents = signal<Incident[]>([]);
   categories = signal<Categorie[]>([]);
@@ -834,9 +856,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   setView(view: 'accueil' | 'connexion' | 'dashboard') {
     this.currentView.set(view);
+    this.menuOpen.set(false);
   }
 
   scrollTo(id: string) {
+    this.menuOpen.set(false);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
